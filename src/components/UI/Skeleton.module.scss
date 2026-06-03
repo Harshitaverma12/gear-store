@@ -1,0 +1,72 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+.skeleton {
+  display: grid;
+  grid-template-columns: $gallery-ratio 1fr;
+  gap: $space-2xl;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: $space-xl $space-xl;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: $space-lg;
+    padding: $space-md;
+  }
+}
+
+.block {
+  background: linear-gradient(
+    90deg,
+    $color-bg-alt 0%,
+    $color-border-light 50%,
+    $color-bg-alt 100%
+  );
+  background-size: 600px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: $radius-sm;
+}
+
+// ─── Gallery ─────────────────────────────────────────────────────────────────
+.galleryCol {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.mainImg {
+  aspect-ratio: 4 / 3;
+  border-radius: $radius-md;
+}
+
+.thumbRow {
+  display: flex;
+  gap: $space-sm;
+}
+
+.thumb {
+  width: 72px;
+  height: 60px;
+}
+
+// ─── Info ────────────────────────────────────────────────────────────────────
+.infoCol {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  padding-top: $space-sm;
+}
+
+.brand  { height: 12px; width: 100px; }
+.title  { height: 36px; width: 90%; }
+.titleShort { height: 36px; width: 60%; }
+.price  { height: 28px; width: 140px; margin-top: $space-sm; }
+.swatches { height: 32px; width: 160px; margin-top: $space-lg; }
+.sizes  { height: 44px; width: 100%; margin-top: $space-sm; }
+.btn    { height: 54px; width: 100%; margin-top: $space-xl; border-radius: $radius-sm; }

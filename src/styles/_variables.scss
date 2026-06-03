@@ -1,0 +1,57 @@
+// ─── Palette ───────────────────────────────────────────────────────────────
+$color-bg:           #F7F5F0;
+$color-bg-alt:       #EDEAE3;
+$color-surface:      #FFFFFF;
+$color-border:       #D9D4C8;
+$color-border-light: #EAE7E0;
+
+$color-ink:          #1A1714;
+$color-ink-secondary:#5C5650;
+$color-ink-muted:    #9C9389;
+
+$color-accent:       #C45C2A;   // terracotta — earthy, outdoor brand feel
+$color-accent-dark:  #A0481F;
+$color-accent-light: #F0D5C5;
+
+$color-success:      #3A7D44;
+$color-warning:      #B07D25;
+$color-danger:       #C0392B;
+
+// ─── Typography ────────────────────────────────────────────────────────────
+// Deliberately hand-picked: Bebas for display punch, DM Serif for elegance,
+// DM Sans for clean body copy
+$font-display: 'Bebas Neue', 'Impact', sans-serif;
+$font-serif:   'DM Serif Display', Georgia, serif;
+$font-body:    'DM Sans', 'Helvetica Neue', sans-serif;
+
+$font-size-base:  16px;
+$line-height:     1.6;
+
+// ─── Spacing ───────────────────────────────────────────────────────────────
+$space-xs:  4px;
+$space-sm:  8px;
+$space-md:  16px;
+$space-lg:  24px;
+$space-xl:  40px;
+$space-2xl: 64px;
+$space-3xl: 96px;
+
+// ─── Layout ────────────────────────────────────────────────────────────────
+$max-width:       1280px;
+$breakpoint-md:   768px;
+$breakpoint-lg:   1024px;
+$gallery-ratio:   55%;
+
+// ─── Misc ──────────────────────────────────────────────────────────────────
+$radius-sm:  4px;
+$radius-md:  8px;
+$radius-lg:  16px;
+$radius-full:50%;
+
+$shadow-sm:  0 1px 3px rgba(0,0,0,.08);
+$shadow-md:  0 4px 16px rgba(0,0,0,.10);
+$shadow-lg:  0 12px 40px rgba(0,0,0,.14);
+
+$transition-fast:   150ms ease;
+$transition-normal: 250ms ease;
+$transition-slow:   400ms ease;

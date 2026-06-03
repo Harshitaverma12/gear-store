@@ -1,0 +1,128 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.page {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: $space-2xl $space-xl;
+  min-height: 60vh;
+  @include mobile { padding: $space-xl $space-md; }
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: $space-xl;
+}
+
+.title {
+  font-family: $font-display;
+  font-size: 1.8rem;
+  letter-spacing: .02em;
+  color: $color-ink;
+}
+
+.count { color: $color-ink-muted; font-size: 1.2rem; }
+
+.clearAll {
+  @include button-reset;
+  font-size: .8125rem;
+  color: $color-ink-muted;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  &:hover { color: $color-danger; }
+}
+
+// ─── Empty state ─────────────────────────────────────────────────────────────
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $space-3xl 0;
+  gap: $space-sm;
+  text-align: center;
+}
+
+.emptyText { font-size: 1.1rem; font-weight: 600; color: $color-ink; margin-top: $space-md; }
+.emptySub  { font-size: .9rem; color: $color-ink-secondary; }
+
+.shopLink {
+  margin-top: $space-lg;
+  display: inline-block;
+  padding: 12px 28px;
+  background: $color-ink;
+  color: $color-bg;
+  border-radius: $radius-sm;
+  font-size: .875rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  transition: background $transition-fast;
+  &:hover { background: $color-accent-dark; }
+}
+
+// ─── Grid ─────────────────────────────────────────────────────────────────────
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: $space-xl;
+  @include mobile { grid-template-columns: repeat(2, 1fr); gap: $space-md; }
+}
+
+.card {
+  position: relative;
+  border-radius: $radius-md;
+  overflow: hidden;
+  border: 1px solid $color-border-light;
+  background: $color-surface;
+  transition: box-shadow $transition-fast;
+  animation: fadeInUp 250ms ease both;
+  &:hover { box-shadow: $shadow-md; }
+}
+
+.cardLink { display: block; text-decoration: none; }
+
+.imgWrap {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: $color-bg-alt;
+  overflow: hidden;
+}
+
+.img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform 400ms ease;
+  .card:hover & { transform: scale(1.04); }
+}
+
+.salePill {
+  position: absolute; top: $space-sm; left: $space-sm;
+  padding: 3px 9px; background: $color-accent; color: #fff;
+  font-size: 10px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; border-radius: 3px;
+}
+
+.info { padding: $space-md; }
+.category { font-size: .75rem; color: $color-ink-muted; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+.name { font-size: .875rem; font-weight: 600; color: $color-ink; line-height: 1.3; margin-bottom: $space-sm; }
+.pricing { display: flex; align-items: baseline; gap: $space-sm; margin-bottom: 4px; }
+.price, .salePrice { font-size: .95rem; font-weight: 700; color: $color-ink; }
+.salePrice { color: $color-accent; }
+.origPrice { font-size: .8rem; color: $color-ink-muted; text-decoration: line-through; }
+.rating { font-size: .8rem; color: $color-ink-secondary; }
+
+.removeBtn {
+  @include button-reset;
+  position: absolute; top: $space-sm; right: $space-sm;
+  width: 30px; height: 30px; border-radius: 99px;
+  background: rgba(255,255,255,.9); color: $color-ink-muted;
+  display: flex; align-items: center; justify-content: center;
+  transition: color $transition-fast, background $transition-fast;
+  &:hover { color: $color-danger; background: #fff; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

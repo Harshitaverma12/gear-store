@@ -1,0 +1,94 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.page {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: $space-lg $space-xl $space-3xl;
+
+  @include mobile {
+    padding: $space-md $space-md $space-2xl;
+  }
+}
+
+// ─── Back link ───────────────────────────────────────────────────────────────
+.backWrap {
+  margin-top: $space-2xl;
+  padding-top: $space-lg;
+  border-top: 1px solid $color-border-light;
+}
+
+.backLink {
+  font-size: .875rem;
+  font-weight: 500;
+  color: $color-ink-secondary;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover { color: $color-ink; }
+}
+
+// ─── Breadcrumb ──────────────────────────────────────────────────────────────
+.breadcrumb {
+  margin-bottom: $space-lg;
+
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    font-size: .8rem;
+    color: $color-ink-muted;
+
+    &:not(:last-child)::after {
+      content: '/';
+      margin-left: 6px;
+      color: $color-border;
+    }
+
+    &:last-child {
+      color: $color-ink-secondary;
+      font-weight: 500;
+    }
+
+    a {
+      color: $color-ink-muted;
+      transition: color $transition-fast;
+
+      &:hover { color: $color-ink; }
+    }
+  }
+}
+
+// ─── PDP grid ────────────────────────────────────────────────────────────────
+.pdp {
+  display: grid;
+  grid-template-columns: $gallery-ratio 1fr;
+  gap: $space-2xl;
+  align-items: start;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: $space-lg;
+  }
+}
+
+.galleryCol {
+  // sticky handled inside Gallery component itself
+}
+
+.infoCol {
+  @include desktop {
+    padding-top: $space-xs;
+  }
+}
+
+// ─── Details (below fold) ────────────────────────────────────────────────────
+.details {
+  margin-top: $space-2xl;
+}

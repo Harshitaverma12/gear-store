@@ -1,0 +1,126 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba($color-bg, .96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid $color-border-light;
+}
+
+.inner {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 $space-xl;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-xl;
+  @include mobile { padding: 0 $space-md; gap: $space-md; }
+}
+
+// ─── Logo ─────────────────────────────────────────────────────────────────────
+.logo { display: flex; align-items: center; gap: $space-sm; text-decoration: none; flex-shrink: 0; }
+.logoMark {
+  width: 32px; height: 32px; background: $color-ink; color: $color-bg;
+  font-family: $font-display; font-size: 1.4rem;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 3px; letter-spacing: .02em;
+}
+.logoText {
+  font-family: $font-display; font-size: 1.1rem; letter-spacing: .18em; color: $color-ink;
+  @include mobile { display: none; }
+}
+
+// ─── Nav ──────────────────────────────────────────────────────────────────────
+.nav {
+  display: flex; align-items: center; gap: $space-xl; flex: 1;
+  @include mobile { display: none; }
+}
+.navLink {
+  font-size: .8125rem; font-weight: 500; letter-spacing: .08em;
+  text-transform: uppercase; color: $color-ink-secondary;
+  transition: color $transition-fast; white-space: nowrap;
+  &:hover { color: $color-ink; }
+}
+.navLinkActive {
+  color: $color-ink !important; position: relative;
+  &::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 2px; background: $color-ink; border-radius: 1px;
+  }
+}
+.navLinkSale {
+  color: $color-accent;
+  &:hover { color: darken($color-accent, 10%); }
+  &.navLinkActive::after { background: $color-accent; }
+}
+
+// ─── Actions ──────────────────────────────────────────────────────────────────
+.actions { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+
+.iconBtn {
+  position: relative;
+  background: none; border: none; cursor: pointer; text-decoration: none;
+  padding: 10px; color: $color-ink; border-radius: $radius-sm;
+  transition: background $transition-fast; display: flex; align-items: center; justify-content: center;
+  &:hover { background: $color-bg-alt; }
+}
+
+.badge {
+  position: absolute; top: 2px; right: 2px;
+  min-width: 17px; height: 17px; padding: 0 4px;
+  background: $color-accent; color: #fff;
+  font-size: 10px; font-weight: 700; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeIn 200ms ease;
+}
+
+// ─── Search bar (slides down below header) ────────────────────────────────────
+.searchBar {
+  border-top: 1px solid $color-border-light;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 280ms cubic-bezier(.4,0,.2,1), border-color 280ms ease;
+  &.searchBarOpen {
+    max-height: 80px;
+    border-color: $color-border-light;
+  }
+}
+
+.searchForm {
+  max-width: $max-width; margin: 0 auto;
+  padding: 12px $space-xl;
+  display: flex; align-items: center; gap: $space-sm;
+  @include mobile { padding: 10px $space-md; }
+}
+
+.searchInput {
+  flex: 1; border: none; outline: none;
+  font-size: .9375rem; color: $color-ink; background: transparent;
+  font-family: $font-body;
+  &::placeholder { color: $color-ink-muted; }
+  &::-webkit-search-cancel-button { display: none; }
+}
+
+.searchClear {
+  @include button-reset;
+  font-size: 1.2rem; color: $color-ink-muted; line-height: 1;
+  width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+  border-radius: 99px;
+  &:hover { background: $color-bg-alt; color: $color-ink; }
+}
+
+.searchSubmit {
+  @include button-reset;
+  padding: 8px 18px; background: $color-ink; color: $color-bg;
+  font-size: .8125rem; font-weight: 600; letter-spacing: .06em;
+  border-radius: $radius-sm; transition: background $transition-fast;
+  &:hover { background: $color-accent-dark; }
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

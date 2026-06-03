@@ -1,0 +1,82 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: $font-size-base;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: $font-body;
+  background-color: $color-bg;
+  color: $color-ink;
+  line-height: $line-height;
+  min-height: 100vh;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: $font-body;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+// Focus styles — keyboard navigation only
+:focus-visible {
+  @include focus-ring;
+  border-radius: $radius-sm;
+}
+
+// Scrollbar styling
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track { background: $color-bg-alt; }
+::-webkit-scrollbar-thumb {
+  background: $color-border;
+  border-radius: 3px;
+  &:hover { background: $color-ink-muted; }
+}
+
+// Utility: fade-in animation used across components
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .4; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

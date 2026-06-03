@@ -1,0 +1,39 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.wrap {
+  @include flex-center;
+  flex-direction: column;
+  gap: $space-lg;
+  min-height: 400px;
+  padding: $space-2xl;
+  animation: fadeIn 300ms ease;
+}
+
+.icon {
+  color: $color-ink-muted;
+  opacity: .5;
+}
+
+.message {
+  font-size: 1rem;
+  color: $color-ink-secondary;
+  text-align: center;
+  max-width: 360px;
+}
+
+.retryBtn {
+  @include button-reset;
+  padding: $space-sm $space-xl;
+  border: 1.5px solid $color-ink;
+  border-radius: $radius-sm;
+  font-size: .875rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  transition: background $transition-fast, color $transition-fast;
+
+  &:hover {
+    background: $color-ink;
+    color: $color-bg;
+  }
+}

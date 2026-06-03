@@ -1,0 +1,228 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.section {
+  border-top: 1px solid $color-border;
+  padding-top: $space-xl;
+  animation: fadeInUp 500ms ease 200ms both;
+}
+
+// ─── Accordion ───────────────────────────────────────────────────────────────
+.accordion {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  overflow: hidden;
+}
+
+.item {
+  border-bottom: 1px solid $color-border;
+
+  &:last-child { border-bottom: none; }
+}
+
+.trigger {
+  @include button-reset;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: $space-md $space-lg;
+  font-family: $font-body;
+  font-size: .9375rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  text-align: left;
+  color: $color-ink;
+  background: $color-surface;
+  transition: background $transition-fast;
+
+  &:hover { background: $color-bg-alt; }
+
+  @include mobile {
+    padding: $space-md;
+  }
+}
+
+.chevron {
+  color: $color-ink-muted;
+  transition: transform $transition-normal;
+  flex-shrink: 0;
+}
+
+.itemOpen {
+  .chevron { transform: rotate(180deg); }
+  .trigger { background: $color-bg-alt; }
+}
+
+.panel {
+  background: $color-surface;
+  overflow: hidden;
+
+  &[hidden] { display: none; }
+}
+
+.panelInner {
+  padding: $space-lg;
+  animation: fadeInUp 250ms ease;
+
+  @include mobile { padding: $space-md; }
+}
+
+// ─── Description ─────────────────────────────────────────────────────────────
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  color: $color-ink-secondary;
+  font-size: .9375rem;
+  line-height: 1.7;
+}
+
+.descLead {
+  font-family: $font-serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: $color-ink;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+  padding-left: $space-md;
+
+  li {
+    position: relative;
+    color: $color-ink-secondary;
+
+    &::before {
+      content: '—';
+      position: absolute;
+      left: -$space-md;
+      color: $color-accent;
+      font-weight: 700;
+    }
+  }
+}
+
+// ─── Specs ────────────────────────────────────────────────────────────────────
+.specsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+
+  tr {
+    border-bottom: 1px solid $color-border-light;
+    &:last-child { border-bottom: none; }
+  }
+
+  th {
+    text-align: left;
+    font-weight: 500;
+    color: $color-ink-secondary;
+    padding: $space-sm $space-md $space-sm 0;
+    width: 40%;
+    vertical-align: top;
+    font-size: .8125rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+
+  td {
+    color: $color-ink;
+    padding: $space-sm 0;
+    font-weight: 400;
+  }
+}
+
+// ─── Reviews ──────────────────────────────────────────────────────────────────
+.reviews {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.reviewsSummary {
+  display: flex;
+  align-items: center;
+  gap: $space-lg;
+  padding: $space-lg;
+  background: $color-bg-alt;
+  border-radius: $radius-sm;
+}
+
+.avgScore {
+  font-family: $font-display;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: $color-ink;
+}
+
+.reviewCount {
+  font-size: .8125rem;
+  color: $color-ink-muted;
+  margin-top: $space-xs;
+}
+
+.reviewList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.reviewCard {
+  padding: $space-lg;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-sm;
+  background: $color-surface;
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  transition: box-shadow $transition-fast;
+
+  &:hover { box-shadow: $shadow-sm; }
+}
+
+.reviewHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.reviewTitle {
+  font-weight: 600;
+  color: $color-ink;
+  margin-bottom: 4px;
+}
+
+.reviewMeta {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  flex-wrap: wrap;
+}
+
+.reviewAuthor {
+  font-size: .8125rem;
+  color: $color-ink;
+  font-weight: 500;
+}
+
+.reviewDate {
+  font-size: .8125rem;
+  color: $color-ink-muted;
+}
+
+.verified {
+  font-size: .75rem;
+  color: $color-success;
+  font-weight: 500;
+}
+
+.reviewBody {
+  font-size: .9rem;
+  color: $color-ink-secondary;
+  line-height: 1.7;
+}

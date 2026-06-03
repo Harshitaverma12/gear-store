@@ -1,0 +1,22 @@
+@use './styles/variables' as *;
+@use './styles/mixins' as *;
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.footer {
+  margin-top: $space-3xl;
+  padding: $space-xl;
+  border-top: 1px solid $color-border-light;
+  text-align: center;
+  font-size: .8125rem;
+  color: $color-ink-muted;
+  letter-spacing: .04em;
+}

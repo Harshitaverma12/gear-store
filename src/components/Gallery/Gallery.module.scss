@@ -1,0 +1,352 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+// ─── Wrapper: stacked column — main image on top, thumbs below ────────────────
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+// ─── Main image ───────────────────────────────────────────────────────────────
+.mainWrap {
+  position: relative;
+  border-radius: $radius-md;
+  background: $color-bg-alt;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  cursor: zoom-in;
+  outline: none;
+
+  &:focus-visible { box-shadow: 0 0 0 3px $color-accent; }
+
+  @include mobile {
+    aspect-ratio: 4 / 3;
+    border-radius: $radius-sm;
+    cursor: default;
+  }
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  animation: fadeIn 220ms ease;
+  pointer-events: none;
+  user-select: none;
+}
+
+.zoomHint {
+  position: absolute;
+  bottom: $space-md;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 13px;
+  background: rgba(0,0,0,.42);
+  color: #fff;
+  font-size: 11.5px;
+  letter-spacing: .04em;
+  border-radius: 99px;
+  backdrop-filter: blur(6px);
+  pointer-events: none;
+  white-space: nowrap;
+
+  @include mobile { display: none; }
+}
+
+.counter {
+  position: absolute;
+  top: $space-sm;
+  right: $space-sm;
+  padding: 3px 9px;
+  background: rgba(0,0,0,.34);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: .05em;
+  border-radius: 99px;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+
+  @include desktop { display: none; }
+}
+
+// ─── Horizontal thumbnail row (desktop only) ──────────────────────────────────
+.thumbRow {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;               // leave room so box-shadow isn't clipped
+
+  &::-webkit-scrollbar { display: none; }
+
+  @include mobile { display: none; } // hidden on mobile — use dots instead
+}
+
+.thumb {
+  flex-shrink: 0;
+  width: 72px;
+  height: 86px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  background: $color-bg-alt;
+  opacity: .6;
+  cursor: pointer;
+  transition: opacity $transition-fast, border-color $transition-fast, transform $transition-fast;
+  padding: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+
+  &:hover {
+    opacity: .88;
+    border-color: $color-ink-muted;
+  }
+}
+
+.thumbActive {
+  border-color: $color-ink !important;
+  opacity: 1 !important;
+  transform: scale(1.04);
+}
+
+// ─── Mobile dots ──────────────────────────────────────────────────────────────
+.dots {
+  display: none;
+  justify-content: center;
+  gap: 6px;
+  margin-top: $space-xs;
+
+  @include mobile { display: flex; }
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 99px;
+  background: $color-border;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background $transition-fast, transform $transition-fast;
+}
+
+.dotActive {
+  background: $color-ink;
+  transform: scale(1.5);
+}
+
+// ─── Lightbox overlay ─────────────────────────────────────────────────────────
+.lightboxOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, .97);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 180ms ease;
+}
+
+.lbClose {
+  position: absolute;
+  top: $space-lg;
+  right: $space-lg;
+  z-index: 10;
+  width: 42px;
+  height: 42px;
+  border-radius: 99px;
+  background: rgba(0,0,0,.07);
+  color: $color-ink;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background $transition-fast;
+
+  &:hover { background: rgba(0,0,0,.13); }
+}
+
+.lbControls {
+  position: absolute;
+  top: $space-lg;
+  left: $space-lg;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0,0,0,.06);
+  border-radius: 99px;
+  padding: 5px 10px;
+
+  @include mobile { display: none; }
+}
+
+.lbCtrlBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $color-ink;
+  width: 32px;
+  height: 32px;
+  border-radius: 99px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background $transition-fast;
+  opacity: .72;
+
+  &:hover:not(:disabled) { background: rgba(0,0,0,.08); opacity: 1; }
+  &:disabled { opacity: .25; cursor: default; }
+}
+
+.lbZoomLevel {
+  color: $color-ink-secondary;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  min-width: 40px;
+  text-align: center;
+}
+
+.lbNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: 99px;
+  background: rgba(0,0,0,.07);
+  color: $color-ink;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background $transition-fast, transform $transition-fast;
+
+  &:hover { background: rgba(0,0,0,.13); transform: translateY(-50%) scale(1.08); }
+
+  @include mobile { width: 38px; height: 38px; }
+}
+
+.lbNavPrev { left: $space-lg; }
+.lbNavNext { right: $space-lg; }
+
+.lbImgWrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+}
+
+.lbImage {
+  max-width: 88vw;
+  max-height: 78vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+
+  @include mobile { max-width: 96vw; max-height: 68vh; }
+}
+
+.lbZoomed .lbImage { pointer-events: auto; }
+
+.lbHint {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(0,0,0,.38);
+  font-size: 12px;
+  letter-spacing: .04em;
+  pointer-events: none;
+  white-space: nowrap;
+
+  @include mobile { display: none; }
+}
+
+// Bottom thumbnail strip inside lightbox
+.lbThumbs {
+  position: absolute;
+  bottom: $space-lg;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: $space-sm;
+  z-index: 10;
+  padding: 8px 12px;
+  background: rgba(0,0,0,.06);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: $radius-md;
+  max-width: 90vw;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
+}
+
+.lbThumb {
+  flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  opacity: .5;
+  cursor: pointer;
+  padding: 0;
+  background: $color-bg-alt;
+  transition: opacity $transition-fast, border-color $transition-fast, transform $transition-fast;
+
+  img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  &:hover { opacity: .8; }
+}
+
+.lbThumbActive {
+  border-color: $color-ink !important;
+  opacity: 1 !important;
+  transform: scale(1.06);
+}
+
+.lbCounter {
+  position: absolute;
+  bottom: calc($space-lg + 82px);
+  right: $space-lg;
+  color: $color-ink-secondary;
+  font-size: 12.5px;
+  letter-spacing: .06em;
+  z-index: 10;
+
+  @include mobile { bottom: auto; top: $space-lg; right: $space-lg; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

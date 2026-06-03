@@ -1,0 +1,531 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+  animation: fadeInUp 400ms ease both;
+}
+
+// ─── Header ──────────────────────────────────────────────────────────────────
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.brand {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: $color-accent;
+}
+
+.name {
+  font-family: $font-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  line-height: 1.1;
+  color: $color-ink;
+  letter-spacing: -.01em;
+}
+
+// ─── Pricing ─────────────────────────────────────────────────────────────────
+.pricing {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  flex-wrap: wrap;
+}
+
+.price,
+.salePrice {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: $color-ink;
+}
+
+.salePrice {
+  color: $color-accent;
+}
+
+.origPrice {
+  font-size: 1.1rem;
+  color: $color-ink-muted;
+  text-decoration: line-through;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  background: $color-accent;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border-radius: $radius-sm;
+}
+
+// ─── Rating ──────────────────────────────────────────────────────────────────
+.rating {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.stars {
+  display: flex;
+  gap: 1px;
+  color: $color-warning;
+}
+
+.ratingText {
+  font-size: .875rem;
+  color: $color-ink-secondary;
+}
+
+// ─── Divider ─────────────────────────────────────────────────────────────────
+.divider {
+  border: none;
+  border-top: 1px solid $color-border;
+}
+
+// ─── Sections ────────────────────────────────────────────────────────────────
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.label {
+  font-size: .8125rem;
+  font-weight: 500;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: $color-ink-secondary;
+
+  strong {
+    color: $color-ink;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+}
+
+// ─── Swatches ────────────────────────────────────────────────────────────────
+.swatches {
+  display: flex;
+  gap: $space-sm;
+  flex-wrap: wrap;
+}
+
+.swatch {
+  @include button-reset;
+  width: 32px;
+  height: 32px;
+  border-radius: $radius-full;
+  background: var(--swatch-color);
+  border: 2.5px solid transparent;
+  outline-offset: 2px;
+  transition: transform $transition-fast, border-color $transition-fast;
+
+  &:hover { transform: scale(1.12); }
+}
+
+.swatchActive {
+  border-color: $color-ink;
+  transform: scale(1.1);
+  box-shadow: 0 0 0 2px $color-bg, 0 0 0 4px $color-ink;
+}
+
+// ─── Sizes ───────────────────────────────────────────────────────────────────
+.sizeGrid {
+  display: flex;
+  gap: $space-sm;
+  flex-wrap: wrap;
+}
+
+.sizeBtn {
+  @include button-reset;
+  position: relative;
+  min-width: 52px;
+  height: 44px;
+  padding: 0 $space-sm;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-sm;
+  font-size: .875rem;
+  font-weight: 500;
+  color: $color-ink;
+  background: $color-surface;
+  transition: border-color $transition-fast, background $transition-fast, color $transition-fast;
+
+  &:hover:not(:disabled) {
+    border-color: $color-ink;
+  }
+}
+
+.sizeActive {
+  border-color: $color-ink !important;
+  background: $color-ink !important;
+  color: $color-bg !important;
+}
+
+.sizeSoldOut {
+  color: $color-border !important;
+  border-color: $color-border-light !important;
+  cursor: not-allowed !important;
+  position: relative;
+
+  // diagonal strikethrough line
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top right,
+      transparent calc(50% - .5px),
+      $color-border-light,
+      transparent calc(50% + .5px)
+    );
+    border-radius: $radius-sm;
+    pointer-events: none;
+  }
+}
+
+.sizeLowStock {
+  border-color: $color-warning;
+}
+
+.lowBadge {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 6px;
+  height: 6px;
+  background: $color-warning;
+  border-radius: $radius-full;
+}
+
+.stockWarn {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  font-size: .8125rem;
+  color: $color-warning;
+  font-weight: 500;
+}
+
+.warningDot {
+  width: 7px;
+  height: 7px;
+  background: $color-warning;
+  border-radius: $radius-full;
+  flex-shrink: 0;
+}
+
+.soldOutText {
+  font-size: .8125rem;
+  color: $color-ink-muted;
+}
+
+// ─── Quantity ────────────────────────────────────────────────────────────────
+.qty {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.qtyBtn {
+  @include button-reset;
+  @include flex-center;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-sm;
+  font-size: 1.1rem;
+  color: $color-ink;
+  background: $color-surface;
+  transition: border-color $transition-fast, background $transition-fast;
+  user-select: none;
+
+  &:hover:not(:disabled) { border-color: $color-ink; }
+  &:disabled { color: $color-border; cursor: not-allowed; }
+}
+
+.qtyValue {
+  font-size: 1rem;
+  font-weight: 600;
+  min-width: 24px;
+  text-align: center;
+}
+
+.qtyMax {
+  font-size: .8125rem;
+  color: $color-ink-muted;
+}
+
+// ─── Add to Cart ─────────────────────────────────────────────────────────────
+.addBtn {
+  @include button-reset;
+  width: 100%;
+  height: 54px;
+  border-radius: $radius-sm;
+  font-size: .9375rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  background: $color-ink;
+  color: $color-bg;
+  transition: background $transition-fast, transform $transition-fast, opacity $transition-fast;
+  position: relative;
+  overflow: hidden;
+
+  &:hover:not(:disabled) {
+    background: $color-accent-dark;
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) { transform: translateY(0); }
+
+  &:disabled {
+    background: $color-border;
+    color: $color-ink-muted;
+    cursor: not-allowed;
+  }
+
+  // Ripple after success
+  &--success {
+    background: $color-success !important;
+    transform: none !important;
+  }
+}
+
+.btnContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-sm;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(#fff, .3);
+  border-top-color: #fff;
+  border-radius: $radius-full;
+  animation: spin 700ms linear infinite;
+}
+
+.errorMsg {
+  font-size: .8125rem;
+  color: $color-danger;
+  padding: $space-sm $space-md;
+  background: #fde8e6;
+  border: 1px solid #f5b4af;
+  border-radius: $radius-sm;
+  animation: fadeIn 200ms ease;
+}
+
+// ─── Delivery ────────────────────────────────────────────────────────────────
+.delivery {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  font-size: .875rem;
+  color: $color-ink-secondary;
+  padding: $space-sm $space-md;
+  background: $color-bg-alt;
+  border-radius: $radius-sm;
+  border: 1px solid $color-border-light;
+
+  svg { flex-shrink: 0; color: $color-success; }
+
+  strong { color: $color-ink; }
+}
+
+.cartTally {
+  font-size: .8125rem;
+  color: $color-success;
+  font-weight: 500;
+  text-align: center;
+}
+
+// ─── Swatch border variant (for light colors like white/platinum) ─────────────
+.swatchBorder {
+  border: 2px solid $color-border !important;
+}
+
+// ─── Size header row (label + "Size Guide" link) ──────────────────────────────
+.sizeHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sizeChartLink {
+  @include button-reset;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: .8rem;
+  font-weight: 500;
+  color: $color-ink-secondary;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color $transition-fast;
+
+  &:hover { color: $color-ink; }
+}
+
+// ─── Size Chart Modal ─────────────────────────────────────────────────────────
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(3px);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-lg;
+  animation: fadeIn 200ms ease;
+}
+
+.modal {
+  background: $color-surface;
+  border-radius: $radius-md;
+  width: 100%;
+  max-width: 680px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 60px rgba(0,0,0,.18);
+  animation: slideUp 250ms ease;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-lg $space-xl;
+  border-bottom: 1px solid $color-border-light;
+  flex-shrink: 0;
+}
+
+.modalTitle {
+  font-family: $font-display;
+  font-size: 1.1rem;
+  letter-spacing: .02em;
+  color: $color-ink;
+}
+
+.modalClose {
+  @include button-reset;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: $color-ink-muted;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-sm;
+  transition: background $transition-fast, color $transition-fast;
+
+  &:hover {
+    background: $color-bg-alt;
+    color: $color-ink;
+  }
+}
+
+.modalNote {
+  font-size: .8125rem;
+  color: $color-ink-secondary;
+  padding: $space-md $space-xl;
+  background: $color-bg-alt;
+  border-bottom: 1px solid $color-border-light;
+  flex-shrink: 0;
+}
+
+.tableWrap {
+  overflow: auto;
+  flex: 1;
+  padding: $space-lg $space-xl;
+}
+
+.sizeTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .875rem;
+
+  th {
+    text-align: left;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: $color-ink-secondary;
+    padding: $space-sm $space-md;
+    border-bottom: 2px solid $color-border;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: $space-sm $space-md;
+    color: $color-ink-secondary;
+    border-bottom: 1px solid $color-border-light;
+    white-space: nowrap;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  tr:hover td { background: $color-bg-alt; }
+}
+
+.sizeTableSize {
+  font-weight: 600;
+  color: $color-ink !important;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ─── Wishlist + Share action row ──────────────────────────────────────────────
+.actionRow {
+  display: flex;
+  gap: $space-sm;
+  margin: $space-sm 0;
+}
+
+.wishlistBtn,
+.shareBtn {
+  @include button-reset;
+  flex: 1;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-sm;
+  font-size: .8375rem;
+  font-weight: 500;
+  color: $color-ink-secondary;
+  background: $color-surface;
+  transition: border-color $transition-fast, color $transition-fast, background $transition-fast;
+
+  &:hover {
+    border-color: $color-ink;
+    color: $color-ink;
+  }
+}
+
+.wishlistActive {
+  border-color: #e53e3e !important;
+  color: #e53e3e !important;
+  background: #fff5f5 !important;
+}

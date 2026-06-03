@@ -1,0 +1,138 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.backdrop {
+  position: fixed; inset: 0;
+  background: rgba($color-ink, 0); z-index: 200;
+  pointer-events: none; transition: background $transition-normal;
+  &.backdropVisible { background: rgba($color-ink, .5); pointer-events: auto; }
+}
+
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(420px, 96vw);
+  background: $color-surface; z-index: 201;
+  display: flex; flex-direction: column;
+  transform: translateX(100%);
+  transition: transform $transition-slow cubic-bezier(.25,.46,.45,.94);
+  box-shadow: $shadow-lg;
+  &.drawerOpen { transform: translateX(0); }
+}
+
+.drawerHeader {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  padding: $space-lg $space-xl; border-bottom: 1px solid $color-border-light; flex-shrink: 0;
+}
+.drawerTitle { font-family: $font-serif; font-size: 1.35rem; }
+.itemCount { font-size: .8rem; color: $color-ink-muted; margin-top: 2px; }
+
+.closeBtn {
+  @include button-reset; @include flex-center;
+  width: 36px; height: 36px; border-radius: $radius-full;
+  color: $color-ink-secondary; transition: background $transition-fast, color $transition-fast;
+  &:hover { background: $color-bg-alt; color: $color-ink; }
+}
+
+.drawerBody { flex: 1; overflow-y: auto; padding: $space-lg $space-xl; }
+
+.empty {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  height: 100%; gap: $space-md; color: $color-ink-muted; padding: $space-2xl 0; text-align: center;
+}
+.emptyText { font-size: 1rem; font-weight: 500; color: $color-ink; }
+.continueBtn {
+  @include button-reset;
+  font-size: .875rem; font-weight: 600; letter-spacing: .04em;
+  color: $color-accent; border-bottom: 1px solid $color-accent; padding-bottom: 2px;
+}
+
+.itemList { display: flex; flex-direction: column; gap: 0; }
+
+.cartItem {
+  display: flex; gap: $space-md; position: relative;
+  padding: $space-md 0; border-bottom: 1px solid $color-border-light;
+  animation: fadeInUp 200ms ease;
+  &:last-child { border-bottom: none; }
+}
+
+.itemImg {
+  width: 78px; height: 90px; object-fit: cover;
+  border-radius: $radius-sm; background: $color-bg-alt; flex-shrink: 0;
+}
+
+.itemInfo { flex: 1; display: flex; flex-direction: column; gap: 3px; padding-right: $space-xl; }
+.itemName { font-size: .8375rem; font-weight: 600; color: $color-ink; line-height: 1.3; }
+.itemMeta { font-size: .775rem; color: $color-ink-muted; }
+.itemUnitPrice { font-size: .775rem; color: $color-ink-secondary; }
+
+.itemBottom {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: $space-xs;
+}
+
+// ─── Qty stepper ──────────────────────────────────────────────────────────────
+.stepper {
+  display: flex; align-items: center;
+  border: 1.5px solid $color-border; border-radius: 6px; overflow: hidden;
+}
+.stepBtn {
+  @include button-reset;
+  width: 30px; height: 28px; font-size: 1rem; font-weight: 500;
+  color: $color-ink; display: flex; align-items: center; justify-content: center;
+  transition: background $transition-fast;
+  &:hover { background: $color-bg-alt; }
+  &:active { background: $color-border-light; }
+}
+.stepValue {
+  min-width: 28px; text-align: center;
+  font-size: .875rem; font-weight: 600; color: $color-ink;
+  border-left: 1.5px solid $color-border; border-right: 1.5px solid $color-border;
+  height: 28px; display: flex; align-items: center; justify-content: center;
+}
+
+.itemTotal { font-size: .95rem; font-weight: 700; color: $color-ink; }
+
+.removeBtn {
+  @include button-reset; position: absolute; top: $space-md; right: 0;
+  width: 26px; height: 26px; @include flex-center;
+  border-radius: $radius-full; color: $color-ink-muted;
+  transition: background $transition-fast, color $transition-fast;
+  &:hover { background: $color-bg-alt; color: $color-danger; }
+}
+
+// ─── Footer ───────────────────────────────────────────────────────────────────
+.drawerFooter {
+  padding: $space-md $space-xl $space-lg;
+  border-top: 1px solid $color-border-light;
+  display: flex; flex-direction: column; gap: $space-sm; flex-shrink: 0;
+}
+
+.priceBreakdown { display: flex; flex-direction: column; gap: 6px; margin-bottom: $space-sm; }
+
+.priceRow {
+  display: flex; justify-content: space-between;
+  font-size: .8375rem; color: $color-ink-secondary;
+}
+.free { color: #2a7d4f; font-weight: 600; }
+.gstLabel { color: $color-ink-muted; }
+
+.totalRow {
+  font-size: 1rem; font-weight: 700; color: $color-ink;
+  padding-top: $space-sm; border-top: 1.5px solid $color-border;
+  margin-top: 4px;
+}
+
+.checkoutBtn {
+  @include button-reset; width: 100%; height: 50px;
+  background: $color-ink; color: $color-bg;
+  border-radius: $radius-sm; font-size: .9375rem; font-weight: 600;
+  letter-spacing: .04em; transition: background $transition-fast;
+  &:hover { background: $color-accent-dark; }
+}
+.clearBtn {
+  @include button-reset; font-size: .8125rem; color: $color-ink-muted;
+  text-align: center; text-decoration: underline; transition: color $transition-fast;
+  &:hover { color: $color-danger; }
+}
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
